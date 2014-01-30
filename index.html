@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Game</title>
+        <script type="text/javascript" src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
+        <script type="text/javascript" src="display/container.js"></script>
+        <script type="text/javascript" src="display/label.js"></script>
+        <script type="text/javascript" src="display/retangulo.js"></script>
+        <script type="text/javascript" src="display/botao.js"></script>
+        <script type="text/javascript" src="preload/preloader.js"></script>
+        <script type="text/javascript" src="game.js"></script>
+        <script type="text/javascript" src="common/common.js"></script>
+        <script type="text/javascript" src="bitmap/bitmapdata.js"></script>
+        <script>
+            var stage;
+            var queue;
+            var circle;
+            function init(){
+                
+                stage = new createjs.Stage(document.getElementById("canvas"));
+                stage.width = 800;
+                stage.height = 600;
+                createjs.Ticker.setFPS(60);
+                createjs.Ticker.addEventListener("tick", tick);
+                loadBg();
+            }
+            
+            function inicializa(){
+                var logo = getBitmapById("logo", 100, 100, true);
+                var face = getBitmapById("face", 250, 100, true);
+                var btn = newButton({str:"Iniciar", font:"bold 30px Arial", color:"#ffff00", textAlign:"center"}, {stroke:3, strokeColor:"#ccc", fillColor:"#0cf", x:400, y:300, w:120, h:40, r:20});
+                stage.addChild(logo);
+                stage.addChild(face);
+                stage.addChild(btn);
+                
+                //***
+                
+                var g = new createjs.Graphics();
+                g.setStrokeStyle(1);
+                g.beginStroke(createjs.Graphics.getRGB(0,0,0));
+                g.beginFill(createjs.Graphics.getRGB(255,0,0));
+                g.drawCircle(0,0,30);
+                
+                circle = new createjs.Shape(g);
+                circle.x = 100;
+                circle.y = 30;
+                
+                stage.addChild(circle);
+                
+                createjs.Ticker.addEventListener("tick", handleTick);
+                
+                //****
+            }
+            
+            function handleTick() {
+                //Circle will move 10 units to the right.
+                circle.x += 5;
+                //Will cause the circle to wrap back
+                if (circle.x > stage.canvas.width) { circle.x = 0; }
+                stage.update();
+            }
+            
+            function tick(){
+                stage.update();   
+            }
+            
+        </script>
+    </head>
+    <body onload="init()">
+        <canvas width="800" height="600" id="canvas" style="border-color:#F0F0F0"></canvas>
+    </body>
+</html>
