@@ -20,6 +20,8 @@ function newButton(textProp, rectProp){
 function handleClick(event){
     // Click happenened
     
+    window.confirm("Clicou!!!");
+    
     console.log("clicou!", event.currentTarget);
 }
 
