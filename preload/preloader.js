@@ -46,4 +46,5 @@ function handleComplete (e){
     
     stage.removeChild(conteiner);
     inicializa();
+    
 }
