@@ -19,8 +19,8 @@
             function init(){
                 
                 stage = new createjs.Stage(document.getElementById("canvas"));
-                stage.width = 800;
-                stage.height = 600;
+                stage.width = window.innerWidth;
+                stage.height = window.innerHeight;
                 createjs.Ticker.setFPS(60);
                 createjs.Ticker.addEventListener("tick", tick);
                 loadBg();
@@ -68,6 +68,6 @@
         </script>
     </head>
     <body onload="init()">
-        <canvas width="800" height="600" id="canvas" style="border-color:#F0F0F0"></canvas>
+        <canvas width=window.innerWidth height=window.innerHeight id="canvas" style="border-color:#F0F0F0"></canvas>
     </body>
 </html>
