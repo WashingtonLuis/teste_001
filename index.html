@@ -18,6 +18,8 @@
             var circle;
             function init(){
                 
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
                 stage = new createjs.Stage(document.getElementById("canvas"));
                 stage.width = window.innerWidth;
                 stage.height = window.innerHeight;
@@ -68,6 +70,6 @@
         </script>
     </head>
     <body onload="init()">
-        <canvas width=800 height=600 id="canvas" style="border-color:#F0F0F0"></canvas>
+        <canvas width=window.innerWidth height=window.innerHeight id="canvas" style="border-color:#F0F0F0"></canvas>
     </body>
 </html>

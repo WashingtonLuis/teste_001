@@ -20,19 +20,21 @@ function loadAssets(e){
     graphic = newRetangulo(0.5,"#cccccc", 0, 0, 400, 20);
     var shape = new createjs.Shape(graphic);
     conteiner = container("preLoader", {x:400, y:300, width:400, height:50}, true);
-    label = newLabel("Carregando aplicativo: 0%", "bold 14px Arial", "#ffff99", "center", 400, true, conteiner.x, 25);
+    label = newLabel("Carregando aplicativo: 0%", "bold 14px Arial", "#0077ff", "center", 400, true, conteiner.x, 25);
     
     var linhas = Math.round(stage.width / 150);
     var colunas = Math.round(stage.height / 150);
     
-    console.log(linhas,colunas);
+    if(linhas > colunas)
+        colunas = linhas;
+    else
+        linhas = colunas;
     
     for(var i= 0; i < (linhas * colunas); i++){
         
         var img = new createjs.Bitmap(e.target.getResult("bg"));
         img.x = -400 + (150 * (i % linhas));
         img.y = -300 + (150 * (Math.floor(i / linhas)));
-        console.log((i % linhas),(Math.floor(i / linhas)));
         conteiner.addChild(img);
     }
     
@@ -44,7 +46,7 @@ function loadAssets(e){
 function handleProgress(e){
     graphic.clear();
     graphic.beginStroke("#cccccc").setStrokeStyle(0.5).drawRect(0, 0, 400, 20);
-    graphic.beginFill("#121212").drawRect(0,0, Math.round(e.progress * 400), 20);
+    graphic.beginFill("#0077ff").drawRect(0,0, Math.round(e.progress * 400), 20);
     label.text = "Carregando aplicativo: " + Math.round(e.progress * 100) + "%"
 }
 
