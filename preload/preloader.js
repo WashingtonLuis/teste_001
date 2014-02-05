@@ -4,13 +4,12 @@ var label;
 
 function loadBg(){
     var _loader = new createjs.LoadQueue();
-    _loader.loadFile({id:"bg", src:"assets/images/img.jpg", type:createjs.LoadQueue.IMAGE});
+    _loader.loadFile({id:"bg", src:"assets/images/bg.jpg", type:createjs.LoadQueue.IMAGE});
     _loader.addEventListener("complete", loadAssets);
 }
 
 function loadAssets(e){
     
-    var img = new createjs.Bitmap(e.target.getResult("bg"));
     //stage.addChild(img);
     
     queue = new createjs.LoadQueue();
@@ -22,9 +21,20 @@ function loadAssets(e){
     var shape = new createjs.Shape(graphic);
     conteiner = container("preLoader", {x:400, y:300, width:400, height:50}, true);
     label = newLabel("Carregando aplicativo: 0%", "bold 14px Arial", "#ffff99", "center", 400, true, conteiner.x, 25);
-    img.x = -400;
-    img.y = - 300;
-    conteiner.addChild(img);
+    
+    var linhas = Math.round(stage.width / 150);
+    var colunas = Math.round(stage.height / 150);
+    
+    console.log(linhas,colunas);
+    
+    for(var i= 0; i < (linhas * colunas); i++){
+        
+        var img = new createjs.Bitmap(e.target.getResult("bg"));
+        img.x = -400 + (150 * (i % linhas));
+        img.y = -300 + (150 * (Math.floor(i / linhas)));
+        console.log((i % linhas),(Math.floor(i / linhas)));
+        conteiner.addChild(img);
+    }
     
     conteiner.addChild(shape, label);
     stage.addChild(conteiner);
@@ -43,8 +53,8 @@ function handleFileload (e){
 }
 
 function handleComplete (e){
-    
+    /*
     stage.removeChild(conteiner);
     inicializa();
-    
+    */
 }
