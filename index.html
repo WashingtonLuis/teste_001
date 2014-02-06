@@ -18,10 +18,8 @@
             var circle;
             function init(){
                 
-                if(confirm(window.innerWidth +" "+ window.innerHeight +" "+ canvas.width +" "+ canvas.height)){
-                
-                //canvas.width = window.innerWidth;
-                //canvas.height = window.innerHeight;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
                 
                 //alert(canvas.width + "  " + canvas.height);
                 
@@ -31,7 +29,6 @@
                 createjs.Ticker.setFPS(60);
                 createjs.Ticker.addEventListener("tick", tick);
                 loadBg();
-                }
             }
             
             function inicializa(){
