@@ -3,9 +3,11 @@ var graphic;
 var label;
 
 function loadBg(){
-    var _loader = new createjs.LoadQueue();
-    _loader.loadFile({id:"bg", src:"assets/images/bg.jpg", type:createjs.LoadQueue.IMAGE});
-    _loader.addEventListener("complete", loadAssets);
+    if(confirm(window.innerWidth +" "+ window.innerHeight +" "+ canvas.width +" "+ canvas.height)){
+        var _loader = new createjs.LoadQueue();
+        _loader.loadFile({id:"bg", src:"assets/images/bg.png", type:createjs.LoadQueue.IMAGE});
+        _loader.addEventListener("complete", loadAssets);
+    }
 }
 
 function loadAssets(e){
@@ -22,19 +24,21 @@ function loadAssets(e){
     conteiner = container("preLoader", {x:400, y:300, width:400, height:50}, true);
     label = newLabel("Carregando aplicativo: 0%", "bold 14px Arial", "#0077ff", "center", 400, true, conteiner.x, 25);
     
-    var linhas = Math.round(stage.width / 150);
-    var colunas = Math.round(stage.height / 150);
+    var linhas = Math.round(canvas.width / e.target.getResult("bg").width);
+    var colunas = Math.round(canvas.height / e.target.getResult("bg").height);
     
     if(linhas > colunas)
         colunas = linhas;
     else
         linhas = colunas;
     
+    console.log(linhas, colunas, e.target.getResult("bg").width, e.target.getResult("bg").height);
+    
     for(var i= 0; i < (linhas * colunas); i++){
         
         var img = new createjs.Bitmap(e.target.getResult("bg"));
-        img.x = -400 + (150 * (i % linhas));
-        img.y = -300 + (150 * (Math.floor(i / linhas)));
+        img.x = -400 + ((e.target.getResult("bg").width) * (i % linhas));
+        img.y = -300 + ((e.target.getResult("bg").height) * (Math.floor(i / linhas)));
         conteiner.addChild(img);
     }
     
@@ -55,8 +59,9 @@ function handleFileload (e){
 }
 
 function handleComplete (e){
-    /*
-    stage.removeChild(conteiner);
-    inicializa();
-    */
+    
+    if(confirm("Continuar")){
+        stage.removeChild(conteiner);
+        inicializa();
+    }
 }

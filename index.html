@@ -18,50 +18,40 @@
             var circle;
             function init(){
                 
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                alert(canvas.width + "  " + canvas.height);
+                if(confirm(window.innerWidth +" "+ window.innerHeight +" "+ canvas.width +" "+ canvas.height)){
+                
+                //canvas.width = window.innerWidth;
+                //canvas.height = window.innerHeight;
+                
+                //alert(canvas.width + "  " + canvas.height);
+                
                 stage = new createjs.Stage(document.getElementById("canvas"));
-                stage.width = window.innerWidth;
-                stage.height = window.innerHeight;
+                stage.width = canvas.width;
+                stage.height = canvas.height;
                 createjs.Ticker.setFPS(60);
                 createjs.Ticker.addEventListener("tick", tick);
                 loadBg();
+                }
             }
             
             function inicializa(){
                 var logo = getBitmapById("logo", 100, 100, true);
-                var face = getBitmapById("animais", 250, 100, true);
-                var btn = newButton({str:"Iniciar", font:"bold 30px Arial", color:"#ffff00", textAlign:"center"}, {stroke:3, strokeColor:"#ccc", fillColor:"#0cf", x:400, y:300, w:120, h:40, r:20});
+                var animais = getBitmapById("animais", (stage.width*0.5), (stage.height*0.5), true);
+                var btn = newButton({str:"Iniciar", font:"bold 30px Arial", color:"#ffff00", textAlign:"center"}, {stroke:3, strokeColor:"#ccc", fillColor:"#0cf", x:(stage.width*0.5), y:(stage.height*0.5), w:120, h:40, r:20});
+                
+                animais.scaleX = animais.scaleY = 0.4;
+                
                 stage.addChild(logo);
-                stage.addChild(face);
+                stage.addChild(animais);
                 stage.addChild(btn);
+                
+                
                 
                 //***
                 
-                var g = new createjs.Graphics();
-                g.setStrokeStyle(1);
-                g.beginStroke(createjs.Graphics.getRGB(0,0,0));
-                g.beginFill(createjs.Graphics.getRGB(255,0,0));
-                g.drawCircle(0,0,30);
                 
-                circle = new createjs.Shape(g);
-                circle.x = 100;
-                circle.y = 30;
-                
-                stage.addChild(circle);
-                
-                createjs.Ticker.addEventListener("tick", handleTick);
                 
                 //****
-            }
-            
-            function handleTick() {
-                //Circle will move 10 units to the right.
-                circle.x += 10;
-                //Will cause the circle to wrap back
-                if (circle.x > stage.canvas.width) { circle.x = 0; }
-                stage.update();
             }
             
             function tick(){
